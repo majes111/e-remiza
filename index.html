@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<title>E-Remiza</title>
+
+<style>
+
+body{
+font-family: Arial;
+background:#0f172a;
+color:white;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+margin:0;
+}
+
+.panel{
+background:#1e293b;
+padding:30px;
+border-radius:12px;
+width:380px;
+box-shadow:0 0 20px rgba(0,0,0,0.5);
+}
+
+h1{
+text-align:center;
+color:#ef4444;
+margin-bottom:20px;
+}
+
+label{
+font-size:14px;
+}
+
+input, textarea{
+width:100%;
+margin-top:5px;
+margin-bottom:15px;
+padding:10px;
+border-radius:6px;
+border:none;
+background:#0f172a;
+color:white;
+}
+
+button{
+width:100%;
+padding:12px;
+border:none;
+border-radius:6px;
+background:#ef4444;
+color:white;
+font-weight:bold;
+cursor:pointer;
+}
+
+button:hover{
+background:#dc2626;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="panel">
+
+<h1>🚒 E-REMIZA</h1>
+
+<label>Typ zdarzenia</label>
+<input id="typ">
+
+<label>Miejsce</label>
+<input id="miejsce">
+
+<label>SiŚ (siły i środki)</label>
+<input id="sis">
+
+<label>Opis</label>
+<textarea id="opis"></textarea>
+
+<button onclick="wyslij()">Wyślij alarm</button>
+
+</div>
+
+<script>
+
+function wyslij(){
+
+const webhook = "https://discordapp.com/api/webhooks/1479549289339293887/SxTsBgv3j0k1opsdZYccVioHb6ftZa-gOeLtCaPQ5yDrY9T7-K330t9cMISbIl6I3kn3";
+
+const typ = document.getElementById("typ").value;
+const miejsce = document.getElementById("miejsce").value;
+const sis = document.getElementById("sis").value;
+const opis = document.getElementById("opis").value;
+
+fetch(webhook,{
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify({
+
+content:"<@&1479551252508708955> 🚨 ALARM OSP",
+
+embeds:[
+{
+title:"Nowe zgłoszenie",
+color:15158332,
+
+fields:[
+{
+name:"Typ zdarzenia",
+value:typ,
+inline:false
+},
+{
+name:"Miejsce",
+value:miejsce,
+inline:false
+},
+{
+name:"SiŚ",
+value:sis,
+inline:false
+},
+{
+name:"Opis",
+value:opis,
+inline:false
+}
+],
+
+footer:{
+text:"System E-Remiza"
+},
+
+timestamp:new Date()
+}
+
+]
+
+})
+
+})
+
+alert("Alarm wysłany!")
+
+}
+
+</script>
+
+</body>
+</html>
